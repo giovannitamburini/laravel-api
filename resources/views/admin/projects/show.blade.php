@@ -8,6 +8,7 @@
 
         <img src="{{asset('storage/' . $project->cover_image)}}" alt="" class="w-50">
 
+
         <h1 class="text-start">Visualizzazione Progetto</h1>
 
         <div>Utente: {{$project->user->name}}</div>

@@ -11,7 +11,9 @@ class ProjectController extends Controller
     public function index()
     {
         // restituisce tutti i progetti del database
-        $projects = Project::all();
+        // $projects = Project::all();
+        // $projects = Project::with('type', 'technologies', 'user')->get();
+        $projects = Project::with('type', 'technologies', 'user')->orderBy('projects.created_at', 'desc')->paginate(6);
 
         // return response()->json([]);
 
