@@ -26,7 +26,7 @@
                 {{-- slug --}}
                 <td>{{$project->slug}}</td>
                 {{-- link che porta alla show del singolo progetto --}}
-                <td><a href="{{route('admin.projects.show', $project)}}"><i class="fa-solid fa-magnifying-glass"></i></a></td>
+                <td><a href="{{$project->user_id == Auth::id() ? route('admin.projects.show', $project) : route('admin.types.show', $type)}}"><i class="fa-solid fa-magnifying-glass"></i></a></td>
             </tr>
 
             @endforeach
