@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -13,13 +14,16 @@ class ProjectController extends Controller
         // restituisce tutti i progetti del database
         // $projects = Project::all();
         // $projects = Project::with('type', 'technologies', 'user')->get();
-        $projects = Project::with('type', 'technologies', 'user')->orderBy('projects.created_at', 'desc')->paginate(6);
+        $projects = Project::with('type', 'technologies', 'user')
+            ->orderBy('projects.created_at', 'desc')
+            ->paginate(6);
 
-        // return response()->json([]);
+        $types = Type::all();
 
         return response()->json([
             'success' => true,
-            'results' => $projects
+            'results' => $projects,
+            'allType' => $types,
         ]);
     }
 
@@ -31,7 +35,7 @@ class ProjectController extends Controller
         // per prendere effettivamente solo il risultato devo aggiungere ->first()
         // dopo il where possiamo aggiunegere anche altri filtri(orderby....)
         // inn questo caso è cme scrivere: SELECT * FROM projects WHERE slug = $slug
-        $project = Project::where('slug', $slug)->first();
+        $project = Project::where('slug', $slug)->with('type', 'technologies')->first();
 
         // dd($project);
 
